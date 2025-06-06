@@ -43,7 +43,7 @@ class ProductController extends Controller
             }
         }
 
-        $products = $query->paginate(15)->withQueryString();
+        $products = $query->paginate(15)->appends($request->query());
         $categories = Category::where('is_active', true)->get();
 
         return Inertia::render('Products/Index', [

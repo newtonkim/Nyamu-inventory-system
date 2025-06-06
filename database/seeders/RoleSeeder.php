@@ -36,7 +36,7 @@ class RoleSeeder extends Seeder
         ];
 
         foreach ($roles as $role) {
-            \App\Models\Role::create($role);
+            \App\Models\Role::updateOrCreate(['name' => $role['name']], $role);
         }
     }
 }
