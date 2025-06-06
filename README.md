@@ -2,7 +2,7 @@
 
 A comprehensive inventory management system built with Laravel 10, featuring accounting modules, financial reports, and multi-user support.
 
-![VROM Inventory System](https://img.shields.io/badge/Laravel-10.x-red.svg)
+![Tusui Inventory System](https://img.shields.io/badge/Laravel-10.x-red.svg)
 ![PHP](https://img.shields.io/badge/PHP-8.1+-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 

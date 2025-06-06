@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the VROM Inventory System will be documented in this file.
+All notable changes to the Tusui Inventory System will be documented in this file.
 
 ## [1.0.0] - 2025-06-05
 

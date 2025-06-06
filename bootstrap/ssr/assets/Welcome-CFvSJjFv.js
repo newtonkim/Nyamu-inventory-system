@@ -12,7 +12,7 @@ const _sfc_main = {
   },
   setup(__props) {
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "min-h-screen bg-gray-50" }, _attrs))}><nav class="bg-white shadow-sm border-b border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between h-16"><div class="flex items-center"><div class="flex-shrink-0"><h1 class="text-xl font-bold text-gray-900">VROM Inventory System</h1></div></div><div class="flex items-center space-x-4">`);
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "min-h-screen bg-gray-50" }, _attrs))}><nav class="bg-white shadow-sm border-b border-gray-200"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between h-16"><div class="flex items-center"><div class="flex-shrink-0"><h1 class="text-xl font-bold text-gray-900">Tusui Inventory System</h1></div></div><div class="flex items-center space-x-4">`);
       _push(ssrRenderComponent(unref(Link), {
         href: _ctx.route("login"),
         class: "text-gray-500 hover:text-gray-700"

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard - VROM Inventory System')
+@section('title', 'Dashboard - Tusui Inventory System')
 @section('page-title', 'Dashboard')
 @section('page-description', 'Last 6 months: Jan1, 2022 - Jun 30, 2022')
 

@@ -6,7 +6,7 @@
                 <div class="flex justify-between h-16">
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
-                            <h1 class="text-xl font-bold text-gray-900">VROM Inventory System</h1>
+                            <h1 class="text-xl font-bold text-gray-900">Tusui Inventory System</h1>
                         </div>
                     </div>
                     <div class="flex items-center space-x-4">
