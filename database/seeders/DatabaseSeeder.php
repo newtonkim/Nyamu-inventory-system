@@ -19,19 +19,22 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             AccountSeeder::class,
             CategorySeeder::class,
+            ProductSeeder::class,
         ]);
 
         // Create a demo admin user
-        $adminUser = User::create([
-            'name' => 'Demo Admin',
-            'email' => 'admin@demo.com',
-            'password' => Hash::make('password123'),
-        ]);
+        $adminUser = User::firstOrCreate(
+            ['email' => 'admin@demo.com'],
+            [
+                'name' => 'Demo Admin',
+                'password' => Hash::make('password123'),
+            ]
+        );
 
         // Assign the 'admin' role to the user
         $adminRole = Role::where('name', 'admin')->first();
         if ($adminRole) {
-            $adminUser->roles()->attach($adminRole);
+            $adminUser->roles()->syncWithoutDetaching([$adminRole->id]);
         }
     }
 }

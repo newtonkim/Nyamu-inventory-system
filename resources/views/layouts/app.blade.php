@@ -7,11 +7,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 <body class="bg-gray-50">
     <div class="flex h-screen">
         <!-- Sidebar -->
-        <div class="w-64 bg-white shadow-lg">
+        <div class="w-64 bg-white shadow-lg" x-data="{ open: false }">
             <div class="p-6">
                 <div class="flex items-center">
                     <div class="flex items-center justify-center w-8 h-8 bg-blue-600 rounded-lg">
@@ -21,7 +22,7 @@
                 </div>
                 <p class="mt-1 text-sm text-gray-500">Inventory System</p>
             </div>
-            
+
             <nav class="mt-6">
                 <div class="px-6 py-2">
                     <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-lg">
@@ -29,35 +30,43 @@
                         <span class="ml-3">Dashboard</span>
                     </a>
                 </div>
-                
+
                 <div class="px-6 py-2">
-                    <a href="{{ route('products.index') }}" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
-                        <i class="w-5 fas fa-box"></i>
-                        <span class="ml-3">Inventory</span>
-                    </a>
+                    <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <span class="flex items-center">
+                            <i class="w-5 fas fa-box"></i>
+                            <span class="ml-3">Inventory</span>
+                        </span>
+                        <i class="w-4 fas fa-chevron-down"></i>
+                    </button>
+                    <div x-show="open" class="mt-2">
+                        <a href="{{ route('products.index') }}" class="flex items-center px-4 py-2 pl-12 text-gray-600 rounded-lg hover:bg-gray-100">
+                            <span class="ml-3">Product</span>
+                        </a>
+                    </div>
                 </div>
-                
+
                 <div class="px-6 py-2">
                     <a href="{{ route('purchases.index') }}" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
                         <i class="w-5 fas fa-shopping-cart"></i>
                         <span class="ml-3">Purchasing</span>
                     </a>
                 </div>
-                
+
                 <div class="px-6 py-2">
                     <a href="{{ route('sales.index') }}" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
                         <i class="w-5 fas fa-chart-line"></i>
                         <span class="ml-3">Sales</span>
                     </a>
                 </div>
-                
+
                 <div class="px-6 py-2">
                     <a href="#" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
                         <i class="w-5 fas fa-calculator"></i>
                         <span class="ml-3">Accounting</span>
                     </a>
                 </div>
-                
+
                 <div class="px-6 py-2">
                     <a href="#" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
                         <i class="w-5 fas fa-chart-bar"></i>
@@ -76,12 +85,12 @@
                         <h2 class="text-2xl font-semibold text-gray-900">@yield('page-title', 'Dashboard')</h2>
                         <p class="text-sm text-gray-600">@yield('page-description', 'Welcome to your inventory management system')</p>
                     </div>
-                    
+
                     <div class="flex items-center space-x-4">
                         <button class="p-2 text-gray-400 hover:text-gray-600">
                             <i class="fas fa-search"></i>
                         </button>
-                        
+
                         <div class="relative">
                             <button class="flex items-center text-sm text-gray-700 hover:text-gray-900">
                                 <img class="w-8 h-8 rounded-full" src="https://ui-avatars.com/api/?name={{ auth()->user()->name ?? 'User' }}&background=3b82f6&color=fff" alt="User">
@@ -89,7 +98,7 @@
                                 <i class="ml-1 text-xs fas fa-chevron-down"></i>
                             </button>
                         </div>
-                        
+
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
                             <button type="submit" class="text-gray-600 hover:text-gray-900">

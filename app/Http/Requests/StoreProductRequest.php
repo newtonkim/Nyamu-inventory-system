@@ -32,7 +32,7 @@ class StoreProductRequest extends FormRequest
             'minimum_stock' => 'required|integer|min:0',
             'unit' => 'required|string|max:50',
             'barcode' => 'nullable|string|max:255',
-            'image' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'is_active' => 'boolean',
         ];
     }

@@ -19,6 +19,7 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
-        "@tailwindcss/typography": "^0.5.16"
+        "@tailwindcss/typography": "^0.5.16",
+        "vue-barcode-reader": "^1.0.3"
     }
 }

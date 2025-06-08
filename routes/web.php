@@ -49,13 +49,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     // Inventory Management Routes
     Route::resource('products', ProductController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('suppliers', SupplierController::class);
     Route::resource('purchases', PurchaseController::class);
     Route::resource('sales', SaleController::class);
+
+    Route::post('/products/check-barcode', [ProductController::class, 'checkBarcode'])->name('products.checkBarcode');
 });
 
 // require __DIR__.'/auth.php'; // Disabled - using custom auth routes

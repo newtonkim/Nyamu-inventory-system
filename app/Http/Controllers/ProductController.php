@@ -16,40 +16,33 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Product::with('category');
+        $query = Product::with('category')->orderBy('created_at', 'desc');
 
-        // Search functionality
-        if ($request->has('search')) {
-            $search = $request->get('search');
-            $query->where(function($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('sku', 'like', "%{$search}%")
-                  ->orWhere('barcode', 'like', "%{$search}%");
-            });
+        // Name filter
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
         }
 
         // Category filter
-        if ($request->has('category') && $request->get('category')) {
-            $query->where('category_id', $request->get('category'));
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
         }
 
-        // Stock status filter
-        if ($request->has('stock_status')) {
-            $status = $request->get('stock_status');
-            if ($status === 'low') {
-                $query->whereRaw('stock_quantity <= minimum_stock');
-            } elseif ($status === 'out') {
-                $query->where('stock_quantity', 0);
-            }
+        // Date filter
+        if ($request->filled('start_date')) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+        if ($request->filled('end_date')) {
+            $query->whereDate('created_at', '<=', $request->end_date);
         }
 
-        $products = $query->paginate(15)->appends($request->query());
+        $products = $query->paginate(50)->appends($request->query());
         $categories = Category::where('is_active', true)->get();
 
         return Inertia::render('Products/Index', [
             'products' => $products,
             'categories' => $categories,
-            'filters' => $request->only(['search', 'category', 'stock_status'])
+            'filters' => $request->only(['name', 'category_id', 'start_date', 'end_date'])
         ]);
     }
 
@@ -59,7 +52,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::where('is_active', true)->get();
-        
+
         return Inertia::render('Products/Create', [
             'categories' => $categories
         ]);
@@ -71,11 +64,13 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $validated = $request->validated();
-        
-        // Generate SKU if not provided
-        if (empty($validated['sku'])) {
-            $validated['sku'] = 'PRD-' . strtoupper(uniqid());
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('products', 'public');
+        } elseif ($request->image instanceof \Illuminate\Http\UploadedFile) {
+            $validated['image'] = $request->image->store('products', 'public');
         }
+
 
         Product::create($validated);
 
@@ -89,7 +84,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product->load(['category', 'stockMovements.user']);
-        
+
         return Inertia::render('Products/Show', [
             'product' => $product
         ]);
@@ -101,7 +96,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::where('is_active', true)->get();
-        
+
         return Inertia::render('Products/Edit', [
             'product' => $product,
             'categories' => $categories
@@ -128,5 +123,17 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')
             ->with('success', 'Product deleted successfully.');
+    }
+
+    public function checkBarcode(Request $request)
+    {
+        $barcode = $request->input('barcode');
+        $product = Product::where('barcode', $barcode)->first();
+
+        if ($product) {
+            return response()->json(['exists' => true, 'product' => $product]);
+        }
+
+        return response()->json(['exists' => false]);
     }
 }

@@ -4,18 +4,22 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Product;
 use App\Models\Category;
 
-class CategorySeeder extends Seeder
+class ProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Category::create(['name' => 'Electronics']);
-        Category::create(['name' => 'Books']);
-        Category::create(['name' => 'Clothing']);
-        Category::create(['name' => 'Home Goods']);
+        $categories = Category::all();
+
+        if ($categories->isEmpty()) {
+            $this->call(CategorySeeder::class);
+        }
+
+        Product::factory()->count(200)->create();
     }
 }
