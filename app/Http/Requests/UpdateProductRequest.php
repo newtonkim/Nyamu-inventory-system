@@ -9,10 +9,10 @@ class UpdateProductRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-        return auth()->user()->hasAnyRole(['admin', 'manager']);
-    }
+    // public function authorize(): bool
+    // {
+    //     return auth()->user()->hasAnyRole(['admin', 'manager']);
+    // }
 
     /**
      * Get the validation rules that apply to the request.
@@ -22,19 +22,19 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         $productId = $this->route('product')->id ?? null;
-        
+
         return [
-            'name' => 'required|string|max:255',
-            'sku' => 'nullable|string|max:255|unique:products,sku,' . $productId,
-            'description' => 'nullable|string',
-            'category_id' => 'required|exists:categories,id',
-            'cost_price' => 'required|numeric|min:0',
-            'selling_price' => 'required|numeric|min:0',
-            'stock_quantity' => 'required|integer|min:0',
-            'minimum_stock' => 'required|integer|min:0',
-            'unit' => 'required|string|max:50',
+            'name' => 'sometimes|filled|string|max:255',
+            'sku' => 'sometimes|nullable|string|max:255|unique:products,sku,' . $productId,
+            'description' => 'sometimes|nullable|string',
+            'category_id' => 'sometimes|filled|exists:categories,id',
+            'cost_price' => 'sometimes|filled|numeric|min:0',
+            'selling_price' => 'sometimes|filled|numeric|min:0',
+            'stock_quantity' => 'sometimes|filled|integer|min:0',
+            'minimum_stock' => 'sometimes|filled|integer|min:0',
+            'unit' => 'sometimes|filled|string|max:50',
             'barcode' => 'nullable|string|max:255',
-            'image' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'is_active' => 'boolean',
         ];
     }

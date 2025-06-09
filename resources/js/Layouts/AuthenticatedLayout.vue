@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
@@ -9,11 +10,33 @@ import SidebarSubmenu from '@/Components/SidebarSubmenu.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+
+const page = usePage();
+const showFlash = ref(false);
+const flashMessage = ref('');
+const flashType = ref('success');
+
+watch(() => page.props.flash, (flash) => {
+    if (flash && (flash.success || flash.error)) {
+        flashMessage.value = flash.success || flash.error;
+        flashType.value = flash.success ? 'success' : 'error';
+        showFlash.value = true;
+        setTimeout(() => {
+            showFlash.value = false;
+        }, 3000);
+    }
+}, { deep: true });
 </script>
 
 <template>
     <div class="flex h-screen bg-gray-100">
-
+        <div
+            v-if="showFlash"
+            class="fixed top-4 right-4 z-50 px-4 py-2 text-white rounded-md shadow-lg"
+            :class="{ 'bg-green-500': flashType === 'success', 'bg-red-500': flashType === 'error' }"
+        >
+            {{ flashMessage }}
+        </div>
         <div class="flex flex-col flex-1 overflow-hidden">
             <!-- Topbar -->
             <header class="bg-white shadow">

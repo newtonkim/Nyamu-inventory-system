@@ -95,6 +95,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+
         $categories = Category::where('is_active', true)->get();
 
         return Inertia::render('Products/Edit', [
@@ -108,7 +109,18 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $product->update($request->validated());
+       
+        $validated = $request->validated();
+
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($product->image) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($product->image);
+            }
+            $validated['image'] = $request->file('image')->store('products', 'public');
+        }
+
+        $product->update($validated);
 
         return redirect()->route('products.index')
             ->with('success', 'Product updated successfully.');

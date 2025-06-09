@@ -51,7 +51,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Inventory Management Routes
-    Route::resource('products', ProductController::class);
+    Route::resource('products', ProductController::class)->except(['update']);
+    Route::match(['PATCH', 'POST'], 'products/{product}', [ProductController::class, 'update'])->name('products.update');
+
     Route::resource('categories', CategoryController::class);
     Route::resource('suppliers', SupplierController::class);
     Route::resource('purchases', PurchaseController::class);

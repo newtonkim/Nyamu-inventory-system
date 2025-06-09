@@ -343,13 +343,13 @@ const k = { install(t4, e2) {
   const r2 = (t5, r3, n2, o2 = e2) => T(t5, r3, n2, o2);
   parseInt(t4.version) > 2 ? (t4.config.globalProperties.route = r2, t4.provide("route", r2)) : t4.mixin({ methods: { route: r2 } });
 } };
-const appName = "Laravel";
+const appName = "Tusuwi";
 createServer(
   (page) => createInertiaApp({
     page,
     render: renderToString,
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, /* @__PURE__ */ Object.assign({ "./Pages/Auth/ConfirmPassword.vue": () => import("./assets/ConfirmPassword-j-Nfyxnx.js"), "./Pages/Auth/ForgotPassword.vue": () => import("./assets/ForgotPassword-BvjkPfmJ.js"), "./Pages/Auth/Login.vue": () => import("./assets/Login-HdnWzMq7.js"), "./Pages/Auth/Register.vue": () => import("./assets/Register-d3NFjO5m.js"), "./Pages/Auth/ResetPassword.vue": () => import("./assets/ResetPassword-DfXAc58B.js"), "./Pages/Auth/VerifyEmail.vue": () => import("./assets/VerifyEmail-PVtOaUbZ.js"), "./Pages/Dashboard.vue": () => import("./assets/Dashboard-IJTkYAfl.js"), "./Pages/Profile/Edit.vue": () => import("./assets/Edit-BnZ51STj.js"), "./Pages/Profile/Partials/DeleteUserForm.vue": () => import("./assets/DeleteUserForm-DFRCl3Sh.js"), "./Pages/Profile/Partials/UpdatePasswordForm.vue": () => import("./assets/UpdatePasswordForm-CYYEVMV-.js"), "./Pages/Profile/Partials/UpdateProfileInformationForm.vue": () => import("./assets/UpdateProfileInformationForm-BwLAAesb.js"), "./Pages/Welcome.vue": () => import("./assets/Welcome-CFvSJjFv.js") })),
+    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, /* @__PURE__ */ Object.assign({ "./Pages/Auth/ConfirmPassword.vue": () => import("./assets/ConfirmPassword-DAirJCxn.js"), "./Pages/Auth/ForgotPassword.vue": () => import("./assets/ForgotPassword-BNmfiwtX.js"), "./Pages/Auth/Login.vue": () => import("./assets/Login-vjS_F5iM.js"), "./Pages/Auth/Register.vue": () => import("./assets/Register-BBC4HyIE.js"), "./Pages/Auth/ResetPassword.vue": () => import("./assets/ResetPassword-HIyKF4t2.js"), "./Pages/Auth/VerifyEmail.vue": () => import("./assets/VerifyEmail-D72erLoz.js"), "./Pages/Dashboard.vue": () => import("./assets/Dashboard-BEYG86q9.js"), "./Pages/Products/Create.vue": () => import("./assets/Create-B8PuBsiz.js"), "./Pages/Products/Edit.vue": () => import("./assets/Edit-XHGFWUtb.js"), "./Pages/Products/Index.vue": () => import("./assets/Index-DGYhLsDR.js"), "./Pages/Profile/Edit.vue": () => import("./assets/Edit-CzGkFwRf.js"), "./Pages/Profile/Partials/DeleteUserForm.vue": () => import("./assets/DeleteUserForm-omrjq-EJ.js"), "./Pages/Profile/Partials/UpdatePasswordForm.vue": () => import("./assets/UpdatePasswordForm-CYYEVMV-.js"), "./Pages/Profile/Partials/UpdateProfileInformationForm.vue": () => import("./assets/UpdateProfileInformationForm-BwLAAesb.js"), "./Pages/Welcome.vue": () => import("./assets/Welcome-BQMAxW8J.js") })),
     setup({ App, props, plugin }) {
       return createSSRApp({ render: () => h$1(App, props) }).use(plugin).use(k, {
         ...page.props.ziggy,
